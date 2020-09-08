@@ -1,5 +1,6 @@
 package com.voron.petproject.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,11 +14,14 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 public class AmazonConfig {
 
 	@Value("${amazon.secret.key}")
-	private Stirng AMAZON_KEY;
+	private String AMAZON_SECRET_KEY;
+	
+	@Value("${amazan.access.key}")
+	private String AMAZON_ACCESS_KEY;
 
 	@Bean
 	public AmazonS3 s3() {
-		final BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_KEY);
+		final BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
 		
 		AmazonS3 s3Client = AmazonS3ClientBuilder
 							.standard()
